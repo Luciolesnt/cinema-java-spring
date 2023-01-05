@@ -17,7 +17,7 @@ import java.time.LocalDate;
 public class Seance {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Integer id;
 
     private LocalDate date;
 

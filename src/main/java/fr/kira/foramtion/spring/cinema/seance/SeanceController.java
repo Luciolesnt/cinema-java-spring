@@ -28,11 +28,12 @@ public class SeanceController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Seance save(@RequestBody Seance seance) {
-        System.out.println(seance);
         if(seance.getSalle() == null || seance.getFilm() == null) {
             logger.warn("La séance doit posséder une salle et un film.");
             throw new BadRequestException("La séance doit posséder une salle et un film.");
         }
+        var capacite = seance.getSalle().getCapacite();
+        seance.setPlacesDisponibles(capacite);
         return service.save(seance);
     }
 
@@ -58,7 +59,7 @@ public class SeanceController {
 
     /**
      * <h2>Ajoute la Salle à une {@link Seance} en fonction de leurs ids</h2>
-     * @param id du film
+     * @param id de la seance
      * @param idSalle du salle
      */
     @PostMapping("{id}/salle/{idSalle}")
@@ -68,10 +69,29 @@ public class SeanceController {
 
     /**
      * <h2>Supprime la Salle d'une {@link Seance}</h2>
-     * @param id du film
+     * @param id de la seance
      */
     @DeleteMapping("{id}/salle")
     public void deleteSalle(@PathVariable Integer id){
         this.service.deleteSalle(id);
+    }
+
+    /**
+     * <h2>Ajoute le Film à une {@link Seance} en fonction de leurs ids</h2>
+     * @param id de la seance
+     * @param idFilm du film
+     */
+    @PostMapping("{id}/film/{idFilm}")
+    public void addFilm(@PathVariable Integer id, @PathVariable Integer idFilm){
+        this.service.addFilmById(id, idFilm);
+    }
+
+    /**
+     * <h2>Supprime le Film d'une {@link Seance}</h2>
+     * @param id de la seance
+     */
+    @DeleteMapping("{id}/film")
+    public void deleteFilm(@PathVariable Integer id){
+        this.service.deleteFilm(id);
     }
 }

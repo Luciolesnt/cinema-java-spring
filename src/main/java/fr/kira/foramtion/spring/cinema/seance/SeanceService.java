@@ -1,5 +1,6 @@
 package fr.kira.foramtion.spring.cinema.seance;
 
+import fr.kira.foramtion.spring.cinema.film.Film;
 import fr.kira.foramtion.spring.cinema.salle.Salle;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -52,6 +53,29 @@ public class SeanceService {
         salle.setId(idSalle);
         Seance seance = jpaRepository.findById(id).orElseThrow();
         seance.setSalle(salle);
+        jpaRepository.save(seance);
+    }
+
+    /**
+     * Supprime le Film d'une {@link Seance};
+     * @param id de la seance
+     */
+    public void deleteFilm(Integer id) {
+        Seance seance = jpaRepository.findById(id).orElseThrow();
+        seance.setFilm(null);
+        jpaRepository.save(seance);
+    }
+
+    /**
+     * Ajoute un Film à une {@link Seance};
+     * @param id de la seance
+     * @param idFilm du Film
+     */
+    public void addFilmById(Integer id, Integer idFilm) {
+        Film film = new Film();
+        film.setId(idFilm);
+        Seance seance = jpaRepository.findById(id).orElseThrow();
+        seance.setFilm(film);
         jpaRepository.save(seance);
     }
 }
