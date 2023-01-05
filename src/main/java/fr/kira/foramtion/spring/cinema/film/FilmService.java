@@ -4,9 +4,14 @@ import fr.kira.foramtion.spring.cinema.acteur.Acteur;
 import fr.kira.foramtion.spring.cinema.acteur.ActeurService;
 import fr.kira.foramtion.spring.cinema.exceptions.NotFoundException;
 import fr.kira.foramtion.spring.cinema.realisateur.Realisateur;
+import fr.kira.foramtion.spring.cinema.seance.Seance;
+import fr.kira.foramtion.spring.cinema.seance.SeanceService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,23 +28,29 @@ public class FilmService {
      * Le repository pour les films. <br>
      * C'est grâce à lui que l'on peut accéder à la base de données.
      */
-
     private final FilmJpaRepository jpaRepository;
     /**
      * Le service pour les acteurs. <br>
      * Utile pour la gestion des acteurs.
      */
     private final ActeurService acteurService;
+    /**
+     * Le service pour les séances.
+     */
+    private final SeanceService seanceService;
 
 
     /**
      * Constructeur du service pour les films.
+     *
      * @param jpaRepository le repository pour les films.
      * @param acteurService le service pour les acteurs.
+     * @param seanceService
      */
-    public FilmService(FilmJpaRepository jpaRepository, ActeurService acteurService) {
+    public FilmService(FilmJpaRepository jpaRepository, ActeurService acteurService, SeanceService seanceService) {
         this.acteurService = acteurService;
         this.jpaRepository = jpaRepository;
+        this.seanceService = seanceService;
     }
 
     public Film save(Film film){
@@ -140,5 +151,14 @@ public class FilmService {
         Film film = jpaRepository.findById(id).orElseThrow();
         film.getRealisateurs().add(realisateur);
         jpaRepository.save(film);
+    }
+
+    public List<Film> findFilmByDate(LocalDate date) {
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        // ...TODO
+
+
+    Film film = new Film();
+    return List.of(film);
     }
 }

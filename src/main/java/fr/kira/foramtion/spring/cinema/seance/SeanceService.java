@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -77,5 +78,9 @@ public class SeanceService {
         Seance seance = jpaRepository.findById(id).orElseThrow();
         seance.setFilm(film);
         jpaRepository.save(seance);
+    }
+
+    public List<Seance> findByDate(LocalDate date) {
+        return jpaRepository.findByDate(date);
     }
 }

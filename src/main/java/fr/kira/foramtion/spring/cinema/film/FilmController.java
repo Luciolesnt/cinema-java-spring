@@ -12,6 +12,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -196,6 +197,19 @@ public class FilmController {
     @DeleteMapping("{id}/realisateurs/{idRealisateur}")
     public void deleteRealisateur(@PathVariable Integer id, @PathVariable Integer idRealisateur){
         this.service.deleteRealisateurById(id, idRealisateur);
+    }
+
+    /**
+     * <h2>Afficher la liste des films à une date donnée</h2>
+     *
+     * @return la liste des films disponibles.
+     */
+    @GetMapping("{id}/date/{date}")
+    public List<FilmReduitDto> addActeurById(@PathVariable LocalDate date){
+        return service.findFilmByDate(date)
+                .stream()
+                .map(film -> mapper.convertValue(film, FilmReduitDto.class))
+                .toList();
     }
 
 }
