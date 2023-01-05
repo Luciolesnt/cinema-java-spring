@@ -13,9 +13,10 @@ import lombok.*;
 public class Salle {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Integer id;
 
     private int numero;
 
     private int capacite;
+
 }

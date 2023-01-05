@@ -1,5 +1,6 @@
 package fr.kira.foramtion.spring.cinema.seance;
 
+import fr.kira.foramtion.spring.cinema.salle.Salle;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -29,5 +30,28 @@ public class SeanceService {
 
     public void deleteById(Integer integer) {
         jpaRepository.deleteById(integer);
+    }
+
+    /**
+     * Supprime la Salle d'une {@link Seance};
+     * @param id de la seance
+     */
+    public void deleteSalle(Integer id) {
+        Seance seance = jpaRepository.findById(id).orElseThrow();
+        seance.setSalle(null);
+        jpaRepository.save(seance);
+    }
+
+    /**
+     * Ajoute une {@link Salle} à une {@link Seance} en fonction de leurs ids;
+     * @param id de la seance
+     * @param idSalle de la salle
+     */
+    public void addSalleById(Integer id, Integer idSalle) {
+        Salle salle = new Salle();
+        salle.setId(idSalle);
+        Seance seance = jpaRepository.findById(id).orElseThrow();
+        seance.setSalle(salle);
+        jpaRepository.save(seance);
     }
 }

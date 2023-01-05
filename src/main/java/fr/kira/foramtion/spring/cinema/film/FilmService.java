@@ -1,13 +1,9 @@
 package fr.kira.foramtion.spring.cinema.film;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.kira.foramtion.spring.cinema.acteur.Acteur;
 import fr.kira.foramtion.spring.cinema.acteur.ActeurService;
 import fr.kira.foramtion.spring.cinema.exceptions.NotFoundException;
-import fr.kira.foramtion.spring.cinema.film.dto.FilmCompletDto;
-import fr.kira.foramtion.spring.cinema.film.dto.FilmReduitDto;
 import fr.kira.foramtion.spring.cinema.realisateur.Realisateur;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
